@@ -1,0 +1,154 @@
+{
+  "version": 1,
+  "projects": {
+    "ng-mfe": {
+      "projectType": "application",
+      "root": "apps/ng-mfe",
+      "sourceRoot": "apps/ng-mfe/src",
+      "prefix": "rmb-monorepo",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/ng-mfe",
+            "index": "apps/ng-mfe/src/index.html",
+            "main": "apps/ng-mfe/src/main.ts",
+            "polyfills": "apps/ng-mfe/src/polyfills.ts",
+            "tsConfig": "apps/ng-mfe/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": ["apps/ng-mfe/src/favicon.ico", "apps/ng-mfe/src/assets"],
+            "styles": ["apps/ng-mfe/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/ng-mfe/src/environments/environment.ts",
+                  "with": "apps/ng-mfe/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "ng-mfe:build:production"
+            },
+            "development": {
+              "browserTarget": "ng-mfe:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ng-mfe:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/ng-mfe/src/**/*.ts",
+              "apps/ng-mfe/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/ng-mfe"],
+          "options": {
+            "jestConfig": "apps/ng-mfe/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "ng-mfe-e2e": {
+      "root": "apps/ng-mfe-e2e",
+      "sourceRoot": "apps/ng-mfe-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/ng-mfe-e2e/cypress.json",
+            "devServerTarget": "ng-mfe:serve:development",
+            "tsConfig": "apps/ng-mfe-e2e/tsconfig.json"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ng-mfe:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/ng-mfe-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular",
+    "packageManager": "npm"
+  },
+  "schematics": {
+    "@nrwl/angular": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "defaultProject": "ng-mfe"
+}
