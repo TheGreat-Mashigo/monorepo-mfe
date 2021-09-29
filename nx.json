@@ -27,12 +27,29 @@
     ]
   },
   "projects": {
+    "dashboard": {
+      "tags": []
+    },
+    "dashboard-e2e": {
+      "tags": [],
+      "implicitDependencies": ["dashboard"]
+    },
+    "login": {
+      "tags": []
+    },
+    "login-e2e": {
+      "tags": [],
+      "implicitDependencies": ["login"]
+    },
     "ng-mfe": {
       "tags": []
     },
     "ng-mfe-e2e": {
       "tags": [],
       "implicitDependencies": ["ng-mfe"]
+    },
+    "shared-data-access-user": {
+      "tags": []
     }
   }
 }

@@ -1,0 +1,95 @@
+<!-- <div fxLayout="row" fxLayoutAlign="center">
+  <mat-card class="box">
+    <mat-toolbar color="primary">
+      <span>Login to CASDM</span>
+
+      <span class="example-fill-remaining-space"></span>
+
+      <span> </span>
+    </mat-toolbar>
+
+    <mat-card-content>
+      <form class="lumos-form" (ngSubmit)="login()">
+        <p>
+          <mat-form-field class="lumos-full-width">
+            <mat-label>Please enter Username</mat-label>
+            <input matInput placeholder="Username" type="text" required />
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field class="lumos-full-width">
+            <mat-label>Please enter Password</mat-label>
+            <input matInput placeholder="Password" type="password" required />
+          </mat-form-field>
+        </p>
+
+        <mat-card-a ctions>
+          <p>
+            <button
+              mat-raised-button
+              fxLayout="row"
+              fxLayoutAlign="center"
+              color="primary"
+            >
+              Submit
+            </button>
+          </p>
+        </mat-card-a>
+      </form>
+    </mat-card-content>
+
+    <div *ngIf="isLoggedIn$ | async">User is logged in!</div>
+  </mat-card>
+</div> -->
+<form fxLayout="row" fxLayoutAlign="center center">
+  <div class="login-container">
+    <div class="login-content">
+      <mat-toolbar class="login-toolbar" color="secondary">Login</mat-toolbar>
+      <mat-card>
+        <form>
+          <p>
+            <mat-form-field>
+              <!-- <mat-icon matPrefix>person_outline</mat-icon> -->
+              <input
+                autofocus
+                type="text"
+                autocomplete="off"
+                matInput
+                placeholder="Username"
+                formControlName="email"
+                required
+              />
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field>
+              <!-- <mat-icon matPrefix>lock_outline</mat-icon> -->
+              <input
+                type="password"
+                autocomplete="false"
+                matInput
+                placeholder="Password"
+                formControlName="password"
+                required
+              />
+            </mat-form-field>
+          </p>
+          <button
+            style="float: center"
+            type="submit"
+            mat-raised-button
+            color="accent"
+          >
+            LOGIN
+          </button>
+        </form>
+        <p>
+          <span>
+            If You don't have a account yet please
+            <a routerLink="/register" color="primary">Register here</a></span
+          >
+        </p>
+      </mat-card>
+    </div>
+  </div>
+</form>
