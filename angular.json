@@ -1,6 +1,134 @@
 {
   "version": 1,
   "projects": {
+    "bank-elms": {
+      "projectType": "application",
+      "root": "apps/bank-elms",
+      "sourceRoot": "apps/bank-elms/src",
+      "prefix": "rmb-monorepo",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:webpack-browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/bank-elms",
+            "index": "apps/bank-elms/src/index.html",
+            "main": "apps/bank-elms/src/main.ts",
+            "polyfills": "apps/bank-elms/src/polyfills.ts",
+            "tsConfig": "apps/bank-elms/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/bank-elms/src/favicon.ico",
+              "apps/bank-elms/src/assets"
+            ],
+            "styles": ["apps/bank-elms/src/styles.scss"],
+            "scripts": [],
+            "customWebpackConfig": {
+              "path": "apps/bank-elms/webpack.config.js"
+            }
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/bank-elms/src/environments/environment.ts",
+                  "with": "apps/bank-elms/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all",
+              "customWebpackConfig": {
+                "path": "apps/bank-elms/webpack.prod.config.js"
+              }
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@nrwl/angular:webpack-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "bank-elms:build:production"
+            },
+            "development": {
+              "browserTarget": "bank-elms:build:development"
+            }
+          },
+          "defaultConfiguration": "development",
+          "options": {
+            "port": 4201
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "bank-elms:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/bank-elms/src/**/*.ts",
+              "apps/bank-elms/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/bank-elms"],
+          "options": {
+            "jestConfig": "apps/bank-elms/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "bank-elms-e2e": {
+      "root": "apps/bank-elms-e2e",
+      "sourceRoot": "apps/bank-elms-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/bank-elms-e2e/cypress.json",
+            "devServerTarget": "bank-elms:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "bank-elms:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/bank-elms-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
     "dashboard": {
       "projectType": "application",
       "root": "apps/dashboard",
@@ -21,7 +149,11 @@
               "apps/dashboard/src/favicon.ico",
               "apps/dashboard/src/assets"
             ],
-            "styles": ["./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css","apps/dashboard/src/styles.scss"],
+            "styles": [
+              "apps/dashboard/src/rmb-theme.scss",
+              "apps/login/src/rmb-theme.scss",
+              "apps/dashboard/src/styles.scss"
+            ],
             "scripts": [],
             "customWebpackConfig": {
               "path": "apps/dashboard/webpack.config.js"
@@ -102,7 +234,11 @@
         "serve-mfe": {
           "builder": "@nrwl/workspace:run-commands",
           "options": {
-            "commands": ["nx serve login", "nx serve dashboard"]
+            "commands": [
+              "nx serve bank-elms",
+              "nx serve login",
+              "nx serve dashboard"
+            ]
           }
         }
       }
@@ -275,7 +411,10 @@
             "tsConfig": "apps/ng-mfe/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": ["apps/ng-mfe/src/favicon.ico", "apps/ng-mfe/src/assets"],
-            "styles": ["./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css", "apps/ng-mfe/src/styles.scss"],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
+              "apps/ng-mfe/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {

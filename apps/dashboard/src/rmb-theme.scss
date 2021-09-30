@@ -1,0 +1,29 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$rmb-theme-primary: mat-palette($mat-teal, 800);
+$rmb-theme-accent: mat-palette($mat-light-green, 800);
+$rmb-theme-warn: mat-palette($mat-red, 800);
+
+$rmb-theme: mat-light-theme(
+  $rmb-theme-primary,
+  $rmb-theme-accent,
+  $rmb-theme-warn
+);
+
+.alternative {
+  @include angular-material-theme($rmb-theme);
+
+  $rmb-theme-primary: mat-palette($mat-amber, 800);
+  $rmb-theme-accent: mat-palette($mat-yellow, 800);
+  $rmb-theme-warn: mat-palette($mat-red, 800);
+
+  $rmb-theme: mat-light-theme(
+    $rmb-theme-primary,
+    $rmb-theme-accent,
+    $rmb-theme-warn
+  );
+
+  @include angular-material-theme($rmb-theme);
+}

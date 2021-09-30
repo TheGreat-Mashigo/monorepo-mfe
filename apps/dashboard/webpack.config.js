@@ -26,6 +26,7 @@ module.exports = {
     new ModuleFederationPlugin({
       remotes: {
         login: 'login@http://localhost:4201/remoteEntry.js',
+        'bank-elms': 'bank-elms@http://localhost:4201/remoteEntry.js',
       },
       shared: {
         '@angular/core': { singleton: true, strictVersion: true },

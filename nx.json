@@ -27,6 +27,13 @@
     ]
   },
   "projects": {
+    "bank-elms": {
+      "tags": []
+    },
+    "bank-elms-e2e": {
+      "tags": [],
+      "implicitDependencies": ["bank-elms"]
+    },
     "dashboard": {
       "tags": []
     },

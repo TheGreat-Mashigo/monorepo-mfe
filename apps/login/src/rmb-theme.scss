@@ -1,0 +1,15 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$rmb-theme-primary: mat-palette($mat-green);
+$rmb-theme-accent: mat-palette($mat-blue, A200, A100, A400);
+$rmb-theme-warn: mat-palette($mat-red, A200, A100, A400);
+
+$rmb-theme: mat-light-theme(
+  $rmb-theme-primary,
+  $rmb-theme-accent,
+  $rmb-theme-warn
+);
+
+@include angular-material-theme($rmb-theme);
